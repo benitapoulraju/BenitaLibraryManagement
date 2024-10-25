@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<LibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); 
 
-builder.Services.AddScoped<IBookOperations, LibraryRepository>();
+builder.Services.AddScoped<IBookRepository, LibraryRepository>();
 
 var app = builder.Build();
 
