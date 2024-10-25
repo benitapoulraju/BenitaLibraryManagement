@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Repositories;
-using LibraryManagement.Models;
 
 namespace LibraryManagement.Controllers
 {
     [Route("[controller]")]
     public class BooksController : Controller
     {
-        private readonly IBookOperations _repository;
+        private readonly IBookRepository _repository;
         
-        public BooksController(IBookOperations repository)
+        public BooksController(IBookRepository repository)
         {
             _repository = repository;
         }
