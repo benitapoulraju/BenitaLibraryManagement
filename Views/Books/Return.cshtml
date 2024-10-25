@@ -1,0 +1,22 @@
+﻿@model LibraryManagement.Models.Book  
+
+@{
+    var userId = ViewBag.UserId; 
+    ViewData["Title"] = "Return Book"; 
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h3>Are you sure you want to return @Model.Title?</h3>
+    <p>Author: @Model.Author</p>
+    <p>Genre: @Model.Genre</p>
+</div>
+
+<form method="post" action="@Url.Action("ConfirmReturn", "Books")">
+    <input type="hidden" name="bookId" value="@Model.BookId" />
+    <input type="hidden" name="userId" value="@userId" /> 
+    <button type="submit" class="btn btn-danger">Confirm Return</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a> 
+
+</form>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LibraryManagement.Models.Book>
+
+@{
+    ViewData["Title"] = "Book List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (ViewBag.UserId != null)
+{
+    <p>Welcome User ID: @ViewBag.UserId</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Available Copies</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.AvailableCopies</td>
+                <td>
+                    @if (book.AvailableCopies > 0)
+                    {
+
+                        <form method="get" action="@Url.Action("Borrow", "Books", new { bookId = book.BookId,userId = @ViewBag.UserId })">
+                            <button type="submit" class="btn btn-primary">Borrow</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>Not Available</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

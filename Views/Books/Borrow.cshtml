@@ -1,0 +1,21 @@
+﻿@model LibraryManagement.Models.Book 
+@{
+    var userId = ViewBag.UserId; 
+    ViewData["Title"] = "Borrow Book";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h3>Are you sure you want to borrow @Model.Title?</h3>
+    <p>Author: @Model.Author</p>
+    <p>Genre: @Model.Genre</p>
+    <p>Available Copies: @Model.AvailableCopies</p>
+</div>
+
+<form method="post" action="@Url.Action("ConfirmBorrow", "Books")">
+    <input type="hidden" name="bookId" value="@Model.BookId" />
+    <input type="hidden" name="userId" value="@userId" /> 
+    <button type="submit" class="btn btn-success">Confirm Borrow</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a> 
+</form>
