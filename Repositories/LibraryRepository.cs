@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LibraryManagement.Data;
+﻿using LibraryManagement.Data;
 using LibraryManagement.Models;
 
 namespace LibraryManagement.Repositories
@@ -17,7 +13,7 @@ namespace LibraryManagement.Repositories
         }
     }
 
-    public interface IBookOperations
+    public interface IBookRepository
     {
         IEnumerable<Book> GetAllBooks();
         Book GetBookById(int bookId);
@@ -26,7 +22,7 @@ namespace LibraryManagement.Repositories
         Task ReturnBook(int bookId, int userId);
     }
 
-    public class LibraryRepository : RepositoryBase, IBookOperations
+    public class LibraryRepository : RepositoryBase, IBookRepository
     {
         private static readonly object _borrowLock = new object();
         private static readonly object _returnLock = new object();
@@ -98,7 +94,7 @@ namespace LibraryManagement.Repositories
 
                     if (borrowedBook == null)
                     {
-                            throw new InvalidOperationException("No borrowed entry found for this book and user.");
+                        throw new InvalidOperationException("No borrowed entry found for this book and user.");
                     }
 
                     borrowedBook.ReturnStatus = true;
