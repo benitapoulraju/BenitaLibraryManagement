@@ -1,0 +1,30 @@
+﻿--users table
+MERGE INTO Users AS target
+USING (VALUES ('Benita', 'benita@gmail.com'), 
+              ('Sanjay ', 'sanjay@gmail.com'),
+              ('Tim', 'tim@gmail.com'),
+              ('Tom', 'tom@gmail.com'),
+              ('Hazel', 'hazel@gmail.com'),
+              ('Jacky', 'jacky@gmail.com')) 
+       AS source (UserName, Email)
+ON target.Email = source.Email
+WHEN MATCHED THEN
+    UPDATE SET target.UserName = source.UserName 
+WHEN NOT MATCHED THEN
+    INSERT (UserName, Email) 
+    VALUES (source.UserName, source.Email);
+
+--books table
+MERGE INTO Books AS target
+USING (VALUES ('The Post Office', 'Rabindra Nath Tagore', 'Mystery', 5),
+              ('War and Peace', 'Leo Tolstoy', 'Mystery', 6),
+              ('Treasure Island', 'R.L. Stevenson', 'Mystery', 4),
+              ('Time Machine', 'H.G Wells', 'Science Fiction', 7),
+              ('Divine Comedy', 'Dante', 'Comedy', 8))
+       AS source (Title, Author, Genre, AvailableCopies)
+ON target.Title = source.Title AND target.Author = source.Author
+WHEN MATCHED THEN
+    UPDATE SET target.Genre = source.Genre, target.AvailableCopies = source.AvailableCopies 
+WHEN NOT MATCHED THEN
+    INSERT (Title, Author, Genre, AvailableCopies)
+    VALUES (source.Title, source.Author, source.Genre, source.AvailableCopies);
